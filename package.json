@@ -1,0 +1,23 @@
+{
+  "name": "btn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "btn.js",
+  "dependencies": {
+    "request": "^2.58.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KennyWuLee/btnStats.git"
+  },
+  "author": "Till",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KennyWuLee/btnStats/issues"
+  },
+  "homepage": "https://github.com/KennyWuLee/btnStats#readme"
+}
