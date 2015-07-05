@@ -1,4 +1,5 @@
-var nano = require('nano')('http://localhost:5984');
+var config = require('./couchconfig.js');
+var nano = require('nano')(config.couchUrl);
 
 var views = {
   all: {
@@ -13,13 +14,39 @@ var views = {
   }
 }
 
-nano.db.get('torrents', function(err, body) {
-  if(!err || err.statusCode === 404) {
-    if(err && err.statusCode === 404)
-      nano.db.create('torrents');
-    updateDesign();
+nano.auth(config.couchUsername, config.couchPassword, function (err, body, headers) {
+  if(err) {
+    console.log(err);
+  }
+  else {
+    nano = require('nano')({
+      url: config.couchUrl,
+      cookie: headers['set-cookie']
+    });
+    checkDatabase();
   }
 });
+
+function checkDatabase() {
+  nano.db.get('torrents', function(err, body) {
+    if(err) {
+      if(err.statusCode === 404) {
+        nano.db.create('torrents', function(err, body) {
+          if (err)
+            console.log(err);
+          else
+            updateDesign();
+        });
+      }
+      else {
+        console.log(err);
+      }
+    }
+    else {
+      updateDesign();
+    }
+  });
+}
 
 function updateDesign() {
   var torrentsDB = nano.use('torrents');
@@ -29,7 +56,13 @@ function updateDesign() {
       Object.keys(views).forEach(function(name) {
         body.views[name] = views[name];
       });
-      torrentsDB.insert(body, '_design/torrents', null);
+      torrentsDB.insert(body, '_design/torrents', function(err, body) {
+        if (err)
+          console.log(err);
+      });
+    }
+    else {
+      console.log(err);
     }
   });
 }
