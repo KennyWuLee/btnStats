@@ -25,7 +25,7 @@ var views = {
           Object.keys(value).forEach(function(group) {
             result[group] = result[group] || {totalSnatched: 0, count: 0};
             result[group].totalSnatched += value[group].totalSnatched;
-            result[group].count++;
+            result[group].count += value[group].count;
           });
         });
       }
