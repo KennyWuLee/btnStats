@@ -1,4 +1,4 @@
-var config = require('./couchconfig.js');
+var config = require('./config.js');
 var nano = require('nano')(config.couchUrl);
 
 var views = {
