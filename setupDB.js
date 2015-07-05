@@ -28,6 +28,7 @@ var views = {
             result[group].count++;
           });
         });
+        return 'lol';
       }
       return result;
     }.toString()
