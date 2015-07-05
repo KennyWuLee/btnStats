@@ -4,6 +4,7 @@
   "description": "",
   "main": "btn.js",
   "dependencies": {
+    "nano": "^6.1.4",
     "request": "^2.58.0"
   },
   "devDependencies": {},
